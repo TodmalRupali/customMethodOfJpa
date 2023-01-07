@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,12 +44,12 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.getDataByEmpName(empName));
     }
 
-    @GetMapping("/getbyid")
+    @GetMapping("/getbyid/{empId}")
     public ResponseEntity<Optional<Employee>> getDataByEmpId(@PathVariable int empId) {
         return ResponseEntity.ok(employeeService.getDataByEmpId(empId));
     }
 
-    @GetMapping("/getbycontactno")
+    @GetMapping("/getbycontactno/{empContactNo}")
     public ResponseEntity<Employee> getDataByEmpContactNo(@PathVariable long empContactNo) {
         return ResponseEntity.ok(employeeService.getDataByEmpContactNo(empContactNo));
     }
@@ -58,13 +59,13 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.getDataByEmpEmailId(empEmailId));
     }
     @GetMapping("/getbydob/{empDob}")
-    public ResponseEntity<Employee> getDataByDOB(@PathVariable String empDob) {
-        return ResponseEntity.ok(employeeService.getDataByEmpEmailId(empDob));
+    public ResponseEntity<List<Employee> >getDataByDOB(@PathVariable String empDob) throws ParseException {
+        return ResponseEntity.ok(employeeService.getDataByDob(empDob));
     }
 
 
     @GetMapping("/getbyanyinput/{empAnyInput}")
-    public ResponseEntity<List<Employee>> getDataByEmpAnyInput(@PathVariable String empAnyInput) {
+    public ResponseEntity<List<Employee>> getDataByEmpAnyInput(@PathVariable String empAnyInput)  {
         return ResponseEntity.ok(employeeService.getDataByEmpAnyInput(empAnyInput));
 
     }

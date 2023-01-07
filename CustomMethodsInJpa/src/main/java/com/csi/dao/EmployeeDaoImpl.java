@@ -40,7 +40,8 @@ public class EmployeeDaoImpl {
     public Optional<Employee> getDataByEmpId(int empId) {
         return employeeRepo.findById(empId);
     }
-    public  List<Employee> getDataByDob(String empDob) throws ParseException {
+
+    public List<Employee> getDataByDob(String empDob) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
         Date empDob1 = simpleDateFormat.parse(empDob);
         return employeeRepo.findByEmpDob(empDob1);
@@ -54,11 +55,15 @@ public class EmployeeDaoImpl {
         return employeeRepo.findByEmpEmailId(empEmailId);
     }
 
-    public List<Employee> getDataByEmpAnyInput(String empAnyInput)  {
+    public List<Employee> getDataByEmpAnyInput(String empAnyInput) {
         List<Employee> list = new ArrayList<>();
+
         for (Employee employee : employeeRepo.findAll()) {
-            if (employee.getEmpName().equals(empAnyInput) || employee.getEmpEmailId().equals(empAnyInput) || String.valueOf(employee.getEmpId()).equals(empAnyInput) || String.valueOf(employee.getEmpContactNo()).equals(empAnyInput) || String.valueOf(employee.getEmpAge()).equals(empAnyInput) || String.valueOf(employee.getEmpSalary()).equals(empAnyInput) || String.valueOf(employee.getEmpDob()).equals(empAnyInput) ) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            String date = simpleDateFormat.format(employee.getEmpDob());
+            if (employee.getEmpName().equals(empAnyInput) || employee.getEmpEmailId().equals(empAnyInput) || String.valueOf(employee.getEmpId()).equals(empAnyInput) || String.valueOf(employee.getEmpContactNo()).equals(empAnyInput) || String.valueOf(employee.getEmpAge()).equals(empAnyInput) || String.valueOf(employee.getEmpSalary()).equals(empAnyInput) || date.equals(empAnyInput)) {
                 list.add(employee);
+
             }
         }
         return list;
